@@ -11,7 +11,28 @@
     <p>Find elements by tag name</p>
 
     <script>
-        // a JavaScript code here ...
+        console.log("Pierwszy h1:");
+        console.log(document.getElementsByTagName("h1")[0].innerHTML);
+        console.log("ID someTest:");
+        console.log(document.getElementById("someTest").innerHTML);
+        console.log("Klasa important:");
+        console.log(document.getElementsByClassName("important")[0].innerHTML);
+        let tablicaP = document.getElementsByTagName("p");
+        
+        /*
+        tablicaP.forEach(element => {
+        console.log(element.id);
+        });
+        */
+
+        console.log("Wszystkie p:");
+        for (let element of tablicaP) {
+        console.log(element.innerHTML);
+        }
+        
+
+
+
 
     </script>
 </body>
