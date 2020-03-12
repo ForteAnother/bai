@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shopping List</title>
+    <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+</head>
+
+<body>
+    <h1>Shopping List</h1>
+    <p>
+        New item: <input type="text" name="item">
+        <button type="button" id="add-button">Add</button>
+    </p>
+    <h3>List of items</h3>
+    <ol id="mojaLista">
+        <li>cooking oil</li>
+        <li>breakfast cereal</li>
+        <li>bread</li>
+    </ol>
+
+    <script>
+        $(document).ready(function() {
+        const $input = $('input[name="item"]');
+        const $list = $("#mojaLista");
+
+        $("#add-button").click(function() {
+            const $item = $(`<li>${$input.val()}</li>`);
+            $list.append($item);
+            $input.val("");
+        });
+
+        $("ol").on("dblclick", "li", function() {
+            $(this).remove();
+        });
+        });
+
+
+    </script>
+
+</body>
+
+</html>

@@ -20,12 +20,21 @@
 		Przeciw nim sterczy biała, wąska, zaostrzona,<br>
 		Jak głaz bodzący morze, reduta Ordona.</p>
 		
-		<textarea rows="15" cols="50"></textarea><br>
-		
+		<textarea rows="15" cols="50" id="mojTextBox" oninput="setTimeout(calculateResult,30000)" ></textarea><br>
+		<p id="mojWynik"></p>
+
 		<script>
-			// a JavaScript code here ...
-			
+			function calculateResult(element) {
+				let tresc = document.getElementById("mojTextBox").value;
+				let iloscSpacji = tresc.split(" ").length;
+				let iloscEnterow = tresc.split("\n").length;
+				let iloscSlow = iloscSpacji + iloscEnterow-1;
+				let iloscZnakow = tresc.length;
+				document.getElementById("mojWynik").innerHTML = `Oto twój wynik:<br> Słów: ${iloscSlow}<br> Znaków:${iloscZnakow}<br><br>`;
+			}
 		</script>
+
+		
 		
 	</body>
 </html>
