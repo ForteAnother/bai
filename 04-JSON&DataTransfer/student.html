@@ -7,11 +7,39 @@
 	<body>
 		<h1>Student</h1>
 		<p>Open a console and then click the button</p>
-		<input type="button" value="Display student's data">
+		<input type="button" value="Display student's data" onclick="pobierzDane()">
 		<p id="personalData"></p>
-		<p id="test"></p>
+
+		
 
 		<script>
+			
+
+
+		function pobierzDane() {
+			
+				var request = new XMLHttpRequest();
+
+				request.onreadystatechange = function() {
+					if (request.readyState == 4 && request.status == 200) {
+						pokazDane(this);
+					}
+				}
+
+				request.open('GET', 'https://gist.githubusercontent.com/ForteAnother/128cd02c1a5c9a43ab913a8db0226d05/raw/b4871c6920d09504629821e8f4b29d97db70a9bd/myName.json');
+				request.send();
+			}
+
+			function pokazDane(student) {
+				let daneStudenta = JSON.parse(student.response);
+				console.log(daneStudenta);
+				
+				let p = document.createElement("p");
+            	let t = document.createTextNode(daneStudenta.imie + ' ' + daneStudenta.nazwisko);
+           		p.appendChild(t);     
+            	document.body.appendChild(p);
+			}
+
 
 		</script>
 

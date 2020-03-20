@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Personal data</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+        <style>
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* :) */
+			}
+
+			#mojaTabelka_wrapper {
+				width: 1000px;
+			}
+
+
+            #mojaTabelka {
+                display: none;
+            }
+
+		</style>
+
+	</head>
+	<body>
+		<input type="button" value="Pokaż listę ludzi" onclick="pobierzDane()">
+		<h1>Lista osób:</h1>
+        <table id="mojaTabelka">
+			<thead>
+				<tr>
+					<th width="20px">Numer</th>
+					<th>Imię</th>
+					<th>Nazwisko</th>
+					<th>Kraj</th>
+				</tr>
+			</thead>
+			<tbody id="tabelkaBody"></tbody>
+        </table>
+        
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+        
+		<script>
+			
+            
+
+		function pobierzDane() {
+			
+				var request = new XMLHttpRequest();
+				
+
+				request.onreadystatechange = function() {
+					if (request.readyState == 4 && request.status == 200) {
+						pokazDane(this, mojaTabelka);
+					}
+				}
+
+				request.open('GET', 'https://gist.githubusercontent.com/ForteAnother/40112eee53fb570385e03c0daae20635/raw/82c29a16254dba4d5e6eaa31fb664cb155af7dfc/people.json');
+				request.send();
+			}
+
+			function pokazDane(osoba, tabelka) {
+				let lista=document.querySelector('#dane');
+				let daneLista = JSON.parse(osoba.response);
+                
+				for (let i=0;i<daneLista.length;i++) {
+                    let tabelka = document.createElement('tr');
+
+                    tabelka.innerHTML = `<td>${i+1}.</td><td>${daneLista[i].name}</td><td>${daneLista[i].surname}</td><td>${daneLista[i].country}</td>`;
+
+                    document.querySelector('#tabelkaBody').appendChild(tabelka);
+
+                    if (i+1==daneLista.length) {
+							$('#mojaTabelka').DataTable();
+                    } 
+                }
+                
+                $('#mojaTabelka').show();
+                
+			}
+
+
+		</script>
+
+	</body>
+</html>

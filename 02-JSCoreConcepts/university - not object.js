@@ -6,42 +6,38 @@ class Students {
     }
 
     startWith(letter){
-        
-        /* Niepotrzebne, uzyte jezeli nie chce zwracac obiektu:
         let namesByLetter = [];
         
         for (let i=0;i<names.length;i++) {
             if (names[i].charAt(0) == letter) {
                 namesByLetter.push(names[i]);
             }
-        }*/
+        }
 
-        return new Students(this.names.filter(imie => imie[0] === letter));; // names (array) which starts with the letter
+        return namesByLetter; // names (array) which starts with the letter
     }
 
     sort() {
-        let namesCopy = this.names.concat(); //niepotrzebne, uzyte jezeli nie chce zwracac obiektu
-        return new Students(this.names.sort());  // names (array) in alphabetical order 
+        let namesCopy = this.names.concat();
+        return namesCopy.sort(); // names (array) in alphabetical order 
     }
 
     get() {
         
-        return this.names; // names (array) in alphabetical order 
+        return names; // names (array) in alphabetical order 
     }
 
     getFirst(n) {
-
-        /*Niepotrzebne, uzyte jezeli nie chce zwracac obiektow
         let namesPartially = [];
         for (let i=0;i<n;i++) {
             namesPartially.push(names[i]);
-        }*/
+        }
         
-        return this.names.slice(0, n);; // get first 'n' names (array) 
+        return namesPartially; // get first 'n' names (array) 
     }
 }
 
-/* Niepotrzebne, uzyte jezeli nie chce zwracac obiektow
+
 const getFirst2 = function (letter, number) {
     let namesPartially = [];
     for (let i=0;i<number;i++) {
@@ -49,7 +45,7 @@ const getFirst2 = function (letter, number) {
     }
     
     return namesPartially; // get first 'n' names (array) 
-}*/
+}
 
 
 
@@ -70,10 +66,13 @@ console.log("Studenci na M, alfabetycznie:")
 console.log(students.startWith('M').sort());
 
 console.log("Pierwsze 4 osoby z tablicy:");
-console.log(students.sort().getFirst(4));
+console.log(students.getFirst(4)); 
 
 console.log("Pierwsze 2 osoby na M, alfabetycznie:");
-console.log(students.startWith('M').sort().getFirst(2));
+console.log(getFirst2(students.startWith('M').sort(),2));
+
+
+
 
 
 

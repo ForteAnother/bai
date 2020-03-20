@@ -3,61 +3,41 @@
 	<head>
 		<title>Create DOM elements</title>
 		<meta charset="UTF-8">
+	
 	</head>
 	<body>
 		<script>
 
-			function generate_table() {
-				// get the reference for the body
-				var body = document.getElementsByTagName("body")[0];
+			function rysujTabelke() {
+				const tabelka= document.createElement("table");
+				tabelka.innerHTML = `
+				<tr><th>1</th><th>2</th></tr>
+				<tr><th>3</th><th>4</th></tr>`;
+				document.body.appendChild(tabelka);
+			
 
-				// creates a <table> element and a <tbody> element
-				var tbl = document.createElement("table");
-				var tblBody = document.createElement("tbody");
+			tabelka.setAttribute(
+				"style",
+				"width: 300px; border: 1px solid black; border-collapse: collapse;  margin-left:auto; margin-right:auto; ",
+			)
 
-				// creating all cells
-				let x = 1;
-				for (var i = 0; i < 2; i++) {
-					// creates a table row
-					var row = document.createElement("tr");
+			//Ponizszy fragment kodu jest po to zeby zmienic wyglad krawedzi tabelki, musze sie dostac do elementow th
+			let zmiennaPomocnicza=tabelka.children[0];
 
-					for (var j = 0; j < 2; j++) {
-					// Create a <td> element and a text node, make the text
-					// node the contents of the <td>, and put the <td> at
-					// the end of the table row
+			for (let j=0;j<2; j++) {
+				let dziecko=zmiennaPomocnicza.children[j];
+					for (let i=0;i<2;i++) {
+					let dziecko2=dziecko.children[i];
 					
-					var cell = document.createElement("td");
-					var cellText = document.createTextNode(x);
-					cell.appendChild(cellText);
-					row.appendChild(cell);
-					cell.style.textAlign='center';
-					//cell.style.border='1';
-					//cell.style.border-collapse='collapse';
-					//row.style.border='1';
-					x++;
+					dziecko2.setAttribute(
+					"style",
+					"border: 1px solid black; border-collapse: collapse;",
+					)
 					}
-
-					// add the row to the end of the table body
-					tblBody.appendChild(row);
-				}
-
-				// put the <tbody> in the <table>
-				tbl.appendChild(tblBody);
-				// appends <table> into <body>
-				body.appendChild(tbl);
-				// sets attributes;
-				
-				tbl.setAttribute("border", "1");
-				tbl.setAttribute("border-collapse", "collapse");
-				tbl.setAttribute("width", "200");
-				tbl.setAttribute("align", "center");
-				}
-
-			function add_to_table() {
-
 			}
-
-generate_table();
+			
+		}
+		rysujTabelke();
 
 			
 		</script>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shopping List</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h1>Shopping List</h1>
+    <p>
+        New item: <input type="text" name="item" id="textfield">
+        <button type="button" onclick="dodajPrzedmiot()">Add</button>
+    </p>
+    <h3>List of items</h3>
+    <ol id="mojaLista" name="li" ondblclick="usunPrzedmiot()">
+        <li>cooking oil</li>
+        <li>breakfast cereal</li>
+        <li>bread</li>
+    </ol>
+
+    <script>
+        function dodajPrzedmiot() {
+            let nowyPrzedmiot = document.getElementById("textfield").value;
+            let ul = document.getElementById("mojaLista");
+            let li = document.createElement("li");
+            li.appendChild(document.createTextNode(nowyPrzedmiot));
+            ul.appendChild(li);
+        }
+
+        function usunPrzedmiot() {
+            let shoppingList = document.getElementById("mojaLista").value;
+            let zmiennaWartosc = document.getElementsByName("li")[0].value;
+            //console.log(shoppingList);
+           // console.log(shoppingList.value);
+            console.log(zmiennaWartosc);
+            let inputValue = document.getElementById("textfield");
+            console.log(inputValue.value);
+            //let listItem = document.getElementById(inputValue.value);
+            //shoppingList.removeChild(listItem);
+        }
+
+
+
+
+            /*
+            $('#mojaLista').empty();
+
+            var list = document.getElementById("mojaLista");  
+            list.removeChild(list.childNodes[]);  
+            let iloscElementow = document.getElementById("mojaLista").getElementsByTagName("li").length    
+            */
+            /*
+            let usunPrzedmiot = document.getElementById("mojaLista").value;
+            let ul = document.getElementById("mojaLista");
+            let li = document.createElement("li");
+            li.appendChild(document.createTextNode(usunPrzedmiot));
+            ul.appendChild(li);
+            */
+
+
+
+
+    </script>
+
+</body>
+
+</html>

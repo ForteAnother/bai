@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Wykres</title>
+        <meta charset="UTF-8">
+	</head>
+	<body>
+        <input type="button" value="Rysuj wykres" onclick="pobierzDane()">
+        <br><br><br>
+        <canvas id="myChart" width="400" height="400"></canvas>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+        
+        <script>
+
+            function pobierzDane() {
+                var request = new XMLHttpRequest();
+                let wykres= document.getElementById('myChart').getContext('2d');
+                
+				
+
+				request.onreadystatechange = function() {
+					if (request.readyState == 4 && request.status == 200) {
+                        let dane  = JSON.parse(request.response);
+                        let daty = [];
+                        let ceny = [];
+                        for (let i=0;i<dane.length;i++) {
+                        daty.push(dane[i].data);
+                        ceny.push(dane[i].cena)
+                        }
+                        console.log(daty);
+                        console.log(ceny);
+						rysujWykres(wykres, daty, ceny);
+					}
+				}
+
+				request.open('GET', 'http://api.nbp.pl/api/cenyzlota/last/10/?format=json');
+				request.send();
+            }
+
+            function rysujWykres(wykres, daty, ceny) {
+
+                    let myChart = new Chart(wykres, {
+                    type: 'bar',
+                    data: {
+                        labels: daty,
+                        datasets: [{
+                                label: 'Cena złota',
+                                data: ceny,
+                                backgroundColor: 'Gold'
+                            }]
+                    },
+                    options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: false
+                            }
+                        }]
+                    }
+                }
+                });
+            }
+
+               
+            </script>
+		
+
+		</script>
+	</body>
+</html>

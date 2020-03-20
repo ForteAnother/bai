@@ -8,9 +8,9 @@ let h = 7;
 
 // Pole trójkąta o bokach a, b oraz c wynosi pole .
 
-let triangleCalc = (a,b,c) => {
+let liczPoleTrojkata = (a,b,c) => {
     let p = 1/2 * (a+b+c);
     return Math.sqrt(p * (p-a)*(p-b)*(p-c));
 };
 
-console.log(`Pole trójkąta o bokach ${a}, ${b} oraz ${c} wynosi ${triangleCalc(a,b,c)}`);
+console.log(`Pole trójkąta o bokach ${a}, ${b} oraz ${c} wynosi ${liczPoleTrojkata(a,b,c)}`);

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Zadanie01</title>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h1>Naciśnij F12</h1>
+		
+		
+		<script>
+		
+        let request = new XMLHttpRequest();
+        console.log(request.open('GET', 'http://api.nbp.pl/api/cenyzlota'));
+        console.log(request.send());
+        request.getAllResponseHeaders();
+        console.log(request.getAllResponseHeaders());
+        request.status;
+        request.response;
+        
+        let responseThings = JSON.parse(request.response);
+        console.log(responseThings);
+        console.log(responseThings[0]);
+        console.log(responseThings[0].cena);
+
+        let responseHeaders = JSON.parse(request.HEADERS_RECEIVED);
+		</script>
+
+	</body>
+</html>
+
+
+
+
+
+

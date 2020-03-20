@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Waluty</title>
+        <meta charset="UTF-8">
+        <style>
+			table {
+				width: 200px;
+				border: 1px solid;
+				border-collapse: collapse;
+				text-align: center;
+			}
+
+			td, th {
+				border: 1px solid;
+            }
+		</style>
+	</head>
+	<body>
+		<h1>Waluty</h1>
+		<p>Nacisnij przycisk, żeby pokazać kursy walut:</p>
+        <input type="button" value="Pokaż kursy (string)"  id="przyciskString" onclick="pokazKurs(this.id)">
+        <input type="button" value="Pokaż kursy (tabelka)" id="przyciskTabelka" onclick="pokazKurs(this.id)" >
+		<p id="currency"></p>
+
+		
+		<script>
+
+		function pokazKurs(clicked_id) {
+                let ktoryPrzycisk=clicked_id;
+
+                console.log(ktoryPrzycisk);
+				var request = new XMLHttpRequest();
+
+				request.onreadystatechange = function() {
+					if (request.readyState == 4 && request.status == 200) {
+						pokazDane(this, ktoryPrzycisk);
+					}
+				}
+
+				request.open('GET', 'http://api.nbp.pl/api/exchangerates/tables/c/?format=json');
+				request.send();
+			}
+
+			function pokazDane(kurs, ktoryPrzycisk) {
+				let kursWalut = JSON.parse(kurs.response);
+                //console.log(kursWalut[0].rates);
+                //console.log(kursWalut[0].rates.length);
+                let tablicaKursow = [];
+               
+
+
+                for (let i = 0; i<kursWalut[0].rates.length; i++) {
+
+                    waluta = kursWalut[0].rates[i].code
+
+                    if (waluta=="USD" || waluta=="EUR" || waluta=="GBP") {
+
+                        //console.log(kursWalut[0].rates[i]);
+                        console.log(kursWalut[0].rates[i].currency);
+                        console.log(kursWalut[0].rates[i].bid);
+                        console.log(kursWalut[0].rates[i].ask);
+
+                        let a=kursWalut[0].rates[i].currency;
+                        let b=kursWalut[0].rates[i].bid;
+                        let c=kursWalut[0].rates[i].ask;
+            
+
+                        let valueToPush = new Array();
+                        valueToPush.push(a);
+                        valueToPush.push(b);
+                        valueToPush.push(c);
+                        tablicaKursow.push(valueToPush);
+                    }
+                }
+                console.log(tablicaKursow);
+
+                function pokazTabelka(tablicaKursow) {
+                    let tablica2 = tablicaKursow;
+                    const body = document.querySelector('body');
+                    const table = document.createElement('table');
+                    table.innerHTML = '<tr><th>CURRENCY</th><th>BID</th><th>ASK</th></tr>';
+                    
+
+                    for (let i=0;i<3;i++) {
+                        table.innerHTML+=`<tr><td>${tablica2[i][0]}</td><td>${tablica2[i][1]}</td><td>${tablica2[i][2]}</td></tr>`;
+                    }
+                    body.appendChild(table);
+                }
+
+                function pokazString(tablicaKursow) {
+
+                    let p = document.createElement("p");
+                    let t = "";
+                    let br = document.createElement("br");
+                    for (let j=0;j<3;j++) {
+                        for (let i=0; i<3; i++) {
+                        t+=tablicaKursow[j][i] + ", ";
+                            if (i==2) {
+                                t+="____";
+                            }
+                        }
+                    }
+                    let h = document.createTextNode(t);
+                    console.log(`Twoje t to: ${t}`)
+           		    p.appendChild(h);     
+            	    document.body.appendChild(p);
+                }
+    
+                if (ktoryPrzycisk=="przyciskTabelka") {
+                pokazTabelka(tablicaKursow);
+                }
+
+                if (ktoryPrzycisk=="przyciskString") {
+                pokazString(tablicaKursow);
+                }
+                
+			}
+
+
+           
+          /*
+            function pokazTabelka(tablicaKursow) {
+                let tablica2 = tablicaKursow;
+                const body = document.querySelector('body');
+			    const table = document.createElement('table');
+			    table.innerHTML = '<tr><th>CURRENCY</th><th>BID</th><th>ASK</th></tr>';
+                
+
+                for (let i=0;i<3;i++) {
+                    table.innerHTML+=`<tr><td>${tablica2}</td><td>b</td><td>c</td></tr>`;
+                }
+                body.appendChild(table);
+            }*/
+
+
+
+            
+            
+
+		</script>
+
+	</body>
+</html>
