@@ -2,8 +2,28 @@
 <html>
 <head>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        margin: 200px;
+      }
+      .tabela {
+        border: 1px solid;
+        text-align: center;
+        width: 500px;
+      }
+    </style>
 </head>
 <body>
+  <div id="app" class="tabela">
+  <p><b>{{company.toUpperCase()}}</b></p>
+  <p>{{address}}</p>
+  <p>{{postcode}} {{city}}</p>
+  <p>tel. {{landline}}, {{mobile}}</p>
+  <a :href="web">{{web}}</a>
+  <p></p>
+  </div>
   <script>
     var app = new Vue({
       el: '#app',

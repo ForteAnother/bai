@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <Style>
+
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        width: 900px;
+        text-align: left;
+      }
+
+    </Style>
+</head>
+<body>
+
+  <table id="app" class="mojaTabelka">
+    <tr><th>Currency</th><th>Code</th><th>Mid</th></tr>
+    <tr v-for="wartosc in odpowiedz"><td>{{wartosc.currency}}</td><td>{{wartosc.code}}</td><td>{{wartosc.mid}}</td></tr>
+</table>
+  <script>
+        var app = new Vue({
+        el: '#app',
+        data: {
+        odpowiedz: "Zbieranie odpowiedzi"
+      },
+        mounted() {
+        fetch('http://api.nbp.pl/api/exchangerates/tables/a/?format=json')
+        .then((dane) => dane.json())
+        .then((dane) => {console.log(dane);
+        this.odpowiedz = dane[0].rates})
+      }
+    });
+  </script>
+</body>
+</html>

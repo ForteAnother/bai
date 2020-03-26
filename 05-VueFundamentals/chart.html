@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+
+  <div id="app">
+    <canvas id="wykres" width="100" height="100"></canvas>
+  </div>
   <script>
-    var app = new Vue({
+
+
+var app = new Vue({
       el: '#app',
       data: {
-        films: [
+        languages: [
           {
             language: 'Python',
             popularity: 25.95
@@ -30,6 +37,59 @@
             popularity: 7.37
           }
         ] 
+      },
+
+      computed: {
+        etykiety() {
+          let tablicaEtykiet = [];
+          let i=0;
+
+          for (this.language in this.languages) {
+            tablicaEtykiet.push(this.languages[i].language);
+            i++;
+          }
+          return tablicaEtykiet;
+          //alternatywnie mozna return this.languages.map((lang) => lang.language)
+        },
+        wartosci() {
+          let tablicaWartosci = [];
+          let i=0;
+
+          for (this.popularity in this.languages) {
+            tablicaWartosci.push(this.languages[i].popularity);
+            i++;
+          }
+          return tablicaWartosci;
+          //alternatywnie mozna return this.languages.map((lang) => lang.popularity)
+        },
+      },
+      methods: {
+        createChart(wykres, etykiety, wartosci) {
+          const ctx = document.getElementById(wykres)
+          const myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+              labels: etykiety,
+              datasets: [{
+                label: 'Popularność',
+                data: wartosci,
+                backgroundColor: [
+                'Blue',
+                'Yellow',
+                'Red',
+                'Pink',
+                'Green'
+            ],
+              }]
+            },
+            options: {
+              responsive: true
+            }
+          })
+        }
+      },
+      mounted() {
+        this.createChart('wykres', this.etykiety, this.wartosci)
       }
     });
   </script>

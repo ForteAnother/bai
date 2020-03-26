@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <p>Student's grades: <span v-for="ocena in oceny">{{ocena}} </span></p>
+    <p>Average grade: {{wyliczSrednia}}</p>
+  </div>    
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+          oceny: [4, 5, 3, 2, 3, 5, 5, 2, 4]
+      },
+      computed: {
+          wyliczSrednia() {
+              let suma= 0;
+              for (let i=0;i<this.oceny.length;i++) {
+                suma+=this.oceny[i];
+                console.log(suma);
+              }
+              let srednia= suma/this.oceny.length;
+              let zaokraglonaSrednia=srednia.toFixed(2);
+              return zaokraglonaSrednia;
+          }
+      }
+
+    });
+  </script>
+
+</body>
+</html>

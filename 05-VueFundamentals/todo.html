@@ -4,6 +4,17 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+  <div id=app>
+  <h1>DO WYKONANIA (oryginalne)</h1>
+  <ol>
+  <li v-for="akcja in todo" >{{akcja}}</li>
+  </ol>
+
+  <h1>DO WYKONANIA (alfabetycznie)</h1>
+  <ol>
+  <li v-for="akcja in sortowanie" >{{akcja}}</li>
+  </ol>
+</div>
   <script>
     var app = new Vue({
       el: '#app',
@@ -12,7 +23,14 @@
           'Purchase two tickets to cinema',
           'Feed cat',
           'Pay cable bill',
-          'Go shopping'
+          'Go shopping']
+      },
+      computed: {
+        sortowanie() {
+          //let lista = this.todo.slice(0);
+          let lista = this.todo.concat();
+          return lista.sort();
+        }
       }
     });
   </script>
