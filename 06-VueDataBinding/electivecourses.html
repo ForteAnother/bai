@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id='mojePrzedmioty'>
+        <input type="checkbox" id="ask" value="Architektura Systemów Komputerowych" v-model="przedmioty">
+        <label for="ask">Architektura Systemów Komputerowych</label>
+        <br>
+        <input type="checkbox" id="metody" value="Metody Numeryczne" v-model="przedmioty">
+        <label for="metody">Metody Numeryczne</label>
+        <br>
+        <input type="checkbox" id="sieci" value="Sieci Komputerowe" v-model="przedmioty">
+        <label for="sieci">Sieci Komputerowe</label>
+        <br>
+        <input type="checkbox" id="programowanie" value="Pracownia Programowania" v-model="przedmioty">
+        <label for="sieci">Pracownia Programowania</label>
+        <br>
+        <input type="checkbox" id="ekonomia" value="Ekonomia" v-model="przedmioty">
+        <label for="ekonomia">Ekonomia</label>
+        <br>
+        <br>
+        <br>
+        <span>Wybrane przedmioty: {{ przedmioty }}</span>
+        <br>
+        <span>Ilość przedmiotów: {{ przedmioty.length }}</span>
+      </div> 
+
+<script>
+
+new Vue({
+  el: '#mojePrzedmioty',
+  data: {
+    przedmioty: []
+  }
+})
+
+</script>
+
+</body>
+</html>

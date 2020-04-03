@@ -7,27 +7,42 @@
   <div id="app">
     <h1>TO DO APP</h1>
     <span>To do: </span>
-    <input type="text" v-model="todo">
+    
+    <input type="text" v-model="todo" >
     <button type="button" @click="add()">Add</button>
+  
     <h3>To Do List</h3>
-    <ol>
-      <li>...</li>
-      <li>...</li>
-      <li>...</li>
+    <ol id="lista">
+      <li v-for="(todo, element) in todos" v-on:dblclick="remove(element)" :key="element">{{todo}}</li>
     </ol>
+    <p v-if="puste">Wpisz czynność do wykonania!</p>
   </div>
   <script>
     var app = new Vue({
       el: '#app',
       data: {
         todo: '',
-        todos: []
+        todos: [],
+        element: 0,
+        puste: false
       },
       methods: {
-        add: function() {
-          this.todos.push(this.todo);
+        add: function() {    
+          if (this.todo=="") {
+            console.log("Nie wpisano czynności");
+            this.puste=true;
+          }
+          else {
+            this.todos.push(this.todo);
+          }
+        },
+
+        remove: function(element) {
+          this.todos.splice(element, 1);
+          console.log("Usunięto element")
         }
-      }
+        
+        }
     });
   </script>
 </body>

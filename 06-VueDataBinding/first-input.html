@@ -6,15 +6,27 @@
 <body>
   <div id="app">
     <span>Your name:</span>
-    <input type="text" v-model="name">  
+    
+    <input type="text" v-model.lazy="name">  
+    <p>Nazywasz się: {{ name }}</p>
+    <p>{{ log(name) }}</p>
   </div>
   <script>
     var app = new Vue({
       el: '#app',
       data: {
         name: ''
-      }
-    });
+      },
+      methods: {
+          log(name) {
+            console.log(name);
+          }
+        }
+      });
+
+
+
+
   </script>
 
 </body>

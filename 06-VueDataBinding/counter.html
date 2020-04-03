@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="przycisk">
+    <button v-on:click="licz()">Nacisnąłeś przycisk {{count}} razy!</button>
+    </div>   
+
+<script>
+
+new Vue({
+  el: '#przycisk',
+  data: {
+        count: 0
+      },
+  methods: {
+    licz: function () {
+        this.count++;
+    }
+  }
+})
+
+</script>
+
+</body>
+</html>

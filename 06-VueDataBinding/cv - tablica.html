@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+
+        .wiek {
+            width: 45px;
+            clear: both;
+        }
+
+        .cv {
+            margin-left:100px;
+        }
+
+
+
+    </style>
+</head>
+<body class='cv'>
+    <h3>Moje CV:</h3>
+    <div id='mojeCV'>
+    <p class='tekst'>Imię: </p><input v-model="imie">
+    <p class='tekst'>Nazwisko: </p><input v-model="nazwisko"> 
+    <p class='tekst'>Wiek: </p><input type='number' v-model="wiek" class='wiek' min="0" step="1" @change="sprawdzWiek()"> lat 
+    <p v-if="zlyWiek" >Wiek musi być liczbą całkowitą, nieujemną!</p>
+    <p>Płeć: </p>
+    <input type="radio" id="kobieta" name="plec" value="Kobieta" v-model="plec">
+    <label for="kobieta">Kobieta</label>
+    <input type="radio" id="mezczyzna" name="plec" value="Mężczyzna" v-model="plec">
+    <label for="mezczyzna">Mężczyzna</label>
+    <br><br>
+    <label for="wyksztalcenie">Wykształcenie: </label>
+    <select id="wyksztalcenie" v-model="wyksztalcenie">
+        <option value="Brak" >Brak</option>
+        <option value="Podstawowe">Podstawowe</option>
+        <option value="Średnie">Średnie</option>
+        <option value="Wyższe">Wyższe</option>
+      </select>
+      <br><br>
+    <label for="umiejetnosci">Umiejętności: </label><br>
+    <select id="umiejetnosci" multiple v-model="umiejetnosci">
+        <option value="Obsługa komputera">Obsługa komputera</option>
+        <option value="Prawo jazdy">Prawo jazdy</option>
+        <option value="Kreatywność">Kreatywność</option>
+        <option value="Praca w zespole">Praca w zespole</option>
+    </select>   
+    <br><br>
+    <button v-on:click="zapisz()">Zapisz</button>
+    <button v-on:click="czytaj()">Odczytaj</button>
+    </div>
+
+   
+
+<script>
+
+    new Vue({
+        el: '#mojeCV',
+        data: { 
+            imie: '',
+            nazwisko: '',
+            wiek: '',
+            plec: '',
+            wyksztalcenie: 'Brak',
+            umiejetnosci: [],
+            zlyWiek: false
+            },
+            
+        methods: {
+            sprawdzWiek: function() {
+                let wiek = this.wiek;
+                let zlyWiek=this.zlyWiek;
+                if (wiek<0 || wiek!=Math.floor(this.wiek)) {
+                    console.log("Zły wiek!");
+                    this.zlyWiek=true;
+                }
+                return zlyWiek;
+            },
+            
+            zapisz: function () {
+                let p = document.createElement("p");
+                let daneOsobowe=[];
+                let labelki=['Imię', 'Nazwisko', 'Wiek', 'Płeć', 'Wykształcenie', 'Umiejętności'];
+                let i=0;
+
+                let imie=this.imie;
+                let nazwisko=this.nazwisko;
+                let wiek=this.wiek;
+                let plec=this.plec;
+                let wyksztalcenie=this.wyksztalcenie;
+                let umiejetnosci=this.umiejetnosci;
+                let zlyWiek=this.zlyWiek;
+                
+
+                if (imie=='' || nazwisko=='' || wiek=='' || plec=='' || zlyWiek ){
+                    console.log("Brakuje danych lub zły wiek!");
+                    p.innerHTML= "Nie wypełniłeś poprawnie wszystkich pól!";
+                    document.body.appendChild(p);
+                }
+                else {
+                    console.log(imie, nazwisko, wiek, plec, wyksztalcenie, umiejetnosci);
+                    daneOsobowe.push(imie, nazwisko, wiek, plec, wyksztalcenie, umiejetnosci);
+               
+                    //Zapisanie do localstorage danych osobowych jako 1 tablicy
+                    localStorage.setItem("daneOsobowe", JSON.stringify(daneOsobowe));   
+
+
+                    p.innerHTML= "Dziękujemy, " + imie + " " + nazwisko + ", twoje CV zostało zapisane!";
+                    document.body.appendChild(p);
+                }
+            },
+
+            czytaj: function () {
+         
+                let dane = localStorage.getItem('daneOsobowe');
+                dane = dane.split('"').join('');
+                dane = dane.split('[').join('');
+                dane = dane.split(']').join('');
+                let tablica = dane.split(',');
+                console.log(tablica);
+            
+
+                
+
+                let p = document.createElement("p");
+                p.innerHTML = "<b>Twoje dane osobowe to: ";
+                for (let i=0; i<tablica.length; i++) {
+                    p.innerHTML+=tablica[i];
+                    if (i+1===tablica.length) {
+                    p.innerHTML+=". ";
+                    }
+                    else {
+                        p.innerHTML+=", "
+                    }
+                }
+                p.innerHTML += " <br/></b>";
+                document.body.appendChild(p);
+                
+            }
+
+            
+            
+        }   
+    })
+
+   
+        
+</script>
+</body>
+</html>

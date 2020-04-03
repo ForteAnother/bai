@@ -7,15 +7,35 @@
   <h1>Body Mass Index</h1>
   <div id="app">
     <span>Waga: </span>
-    <input> kg<br>
+    <input v-model.lazy="waga" type='number'> kg<br>
     <span>Wzrost: </span>
-    <input> cm
+    <input v-model.lazy="wzrost" type='number'> cm
     <p>Wskaźnik BMI:</p>
+    <p>{{liczBMI}}</p>
   </div>
   <script>
     var app = new Vue({
       el: '#app',
       data: {
+        waga: '',
+        wzrost: ''
+      },
+      computed: {
+        liczBMI: function() {
+          let wagaNum=Math.floor(this.waga);
+          let wzrostNum=Math.floor(this.wzrost)/100;
+          let bmi='';
+          let bmiPrzyblizone='';
+
+
+          if (this.waga!='' && this.wzrost!='') {
+            bmi=wagaNum/(wzrostNum*wzrostNum)
+            bmiPrzyblizone=bmi.toFixed(2);
+            console.log(bmiPrzyblizone);
+          }
+          return bmiPrzyblizone;
+        }
+
       }
     });
   </script>
